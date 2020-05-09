@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using App4.Services;
@@ -11,6 +12,7 @@ namespace App4
 
         public App()
         {
+
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
@@ -23,6 +25,7 @@ namespace App4
 
         protected override void OnSleep()
         {
+            
         }
 
         protected override void OnResume()

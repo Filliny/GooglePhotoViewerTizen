@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 
 
 namespace App4
@@ -69,7 +69,7 @@ namespace App4
         internal const string LoopbackCallbackPath = "/authorize/";
 
         /// <summary>Localhost callback URI, expects a port parameter.</summary>
-        internal static readonly string CallbackUriTemplateLocalhost = $"http://localhost:{{0}}{LoopbackCallbackPath}";
+        internal static readonly string CallbackUriTemplateLocalhost = $"http://localhosts:{{0}}{LoopbackCallbackPath}";
         /// <summary>127.0.0.1 callback URI, expects a port parameter.</summary>
         internal static readonly string CallbackUriTemplate127001 = $"http://127.0.0.1:{{0}}{LoopbackCallbackPath}";
 
@@ -131,7 +131,8 @@ namespace App4
                 // Set the instance field of which callback URI to use.
                 // An instance field is used to ensure any one instance of this class
                 // uses a consistent callback URI.
-                _callbackUriTemplate = s_callbackUriTemplate;
+                 _callbackUriTemplate = s_callbackUriTemplate;
+                //_callbackUriTemplate = $"http://ca9be1f9.eu.ngrok.io:{0}/authorize/";
             }
         }
 
@@ -156,7 +157,8 @@ namespace App4
             {
                 if (string.IsNullOrEmpty(redirectUri))
                 {
-                    redirectUri = string.Format(_callbackUriTemplate, GetRandomUnusedPort());
+                   redirectUri = string.Format(_callbackUriTemplate, GetRandomUnusedPort());
+                   //redirectUri = "http://ca9be1f9.eu.ngrok.io/authorize/";
                 }
                 return redirectUri;
             }
@@ -176,6 +178,7 @@ namespace App4
                 bool browserOpenedOk;
                 try
                 {
+                     //browserOpenedOk = OpenBrowser(RedirectUri);
                     browserOpenedOk = OpenBrowser(authorizationUrl);
                 }
                 catch (Exception e)
@@ -216,10 +219,20 @@ namespace App4
         }
         private HttpListener StartListener()
         {
-            var listener = new HttpListener();
-            listener.Prefixes.Add(RedirectUri);
-            listener.Start();
-            return listener;
+            try
+            {
+                var listener = new HttpListener();
+                //listener.Prefixes.Add("http://127.0.0.1:8087/authorize/");
+                listener.Prefixes.Add(RedirectUri);
+                listener.Start();
+                return listener;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         private async Task<AuthorizationCodeResponseUrl> GetResponseFromListener(HttpListener listener, CancellationToken ct)
@@ -262,6 +275,7 @@ namespace App4
         private bool OpenBrowser(string url)
         {
             EmbeddedBrowser.Start(url);
+            //Launcher.OpenAsync(url);
             return true;
         }
     }

@@ -12,5 +12,10 @@ namespace TizenXamlApp1.DependencyService
         {
             return FormsApplication.Current.DirectoryInfo.Resource;
         }
+
+        public string GetShared()
+        {
+            return FormsApplication.Current.DirectoryInfo.SharedTrusted;
+        }
     }
 }

@@ -17,15 +17,14 @@ namespace App4.ViewModels
         
         public ObservableCollection<ItemInst> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
-        public ObservableCollection<Album> PhotoCollection { get; set; } 
-        
+        public ObservableCollection<Album> PhotoCollection { get; set; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
             Items = new ObservableCollection<ItemInst>();
             PhotoCollection = new ObservableCollection<Album>();
-
+           
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             MessagingCenter.Subscribe<NewItemPage, ItemInst>(this, "AddItem", async (obj, item) =>
@@ -35,7 +34,7 @@ namespace App4.ViewModels
                 await DataStore.AddItemAsync(newItem);
             });
 
-
+            
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -69,8 +68,8 @@ namespace App4.ViewModels
 
         public async Task AddOne(Google.Apis.PhotosLibrary.v1.Data.Album to_add)
         {
-            Album tempAlbum = new Album(){AlbumURI = to_add.ProductUrl,Name = to_add.Title,ThumbURI = (to_add.CoverPhotoBaseUrl + "=w120-h120")};
-
+            Album tempAlbum = new Album(){Id = to_add.Id, AlbumURI = to_add.ProductUrl,Name = to_add.Title,ThumbURI = (to_add.CoverPhotoBaseUrl + "=w120-h120")};
+            
             PhotoCollection.Add(tempAlbum);
 
         }

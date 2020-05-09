@@ -22,6 +22,8 @@
     <PackageReference Include="Google.Apis" Version="1.45.0" />
     <PackageReference Include="Google.Apis.Auth" Version="1.45.0" />
     <PackageReference Include="Google.Apis.Core" Version="1.45.0" />
+    <PackageReference Include="QRCoder" Version="1.3.9" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.726" />
   </ItemGroup>
 
   <ItemGroup>

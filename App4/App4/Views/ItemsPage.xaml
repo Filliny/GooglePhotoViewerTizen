@@ -56,7 +56,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition Height="100*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -64,14 +64,16 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
+        
 
-        <StackLayout Grid.Row="1" Grid.Column="1"  Margin="20">
-            <Label Text="My Albums"
+        <StackLayout Grid.Row="1" Grid.Column="1"  Margin="20" >
+            <Label x:Name="TopLabel" Text=""
                    FontSize="50"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center" />
-            <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}">
-                <CollectionView  ItemsSource="{Binding PhotoCollection}">
+                   HorizontalOptions="Center"
+                   IsVisible ="{Binding IsActive}" />
+            <RefreshView x:Name="RefreshViewMain" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}" >
+               <CollectionView x:Name="CollectionViewMain" ItemsSource="{Binding PhotoCollection}" EmptyView="Loading...">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical"
                                  Span="7" />
@@ -89,6 +91,9 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid Padding="10">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="ClickGestureRecognizer_OnClicked"/>
+                                </Grid.GestureRecognizers>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="140" />
                                     <RowDefinition Height="30" />
@@ -115,13 +120,16 @@
                                FontAttributes="Italic" 
                                VerticalOptions="End" />
                             </Grid>
+                            
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </RefreshView>
         </StackLayout>
-
-        <Button x:Name="ButtonLoad" Grid.Column="1" Grid.Row="2" Text="Load" TextColor="Blue" FontSize="50" Clicked="Button_OnClicked" ></Button>
+        <StackLayout Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+        <Button x:Name="ButtonLoad"  Text="Random Slideshow" TextColor="Gray" FontSize="50" Clicked="Button_OnClicked"  ></Button>
+            <Button x:Name="ButtonRandom"  Text="Reload" TextColor="Gray" FontSize="50" Clicked="Button_OnClicked"  ></Button>
+        </StackLayout>
 
     </Grid>
 

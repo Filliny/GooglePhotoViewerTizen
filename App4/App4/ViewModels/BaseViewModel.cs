@@ -15,6 +15,15 @@ namespace App4.ViewModels
         public IDataStore<ItemInst> DataStore => DependencyService.Get<IDataStore<ItemInst>>();
 
         bool isBusy = false;
+
+        bool isActive = true;
+
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { SetProperty(ref isActive, value); }
+        }
+
         public bool IsBusy
         {
             get { return isBusy; }

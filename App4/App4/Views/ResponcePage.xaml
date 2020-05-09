@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="App4.Views.ResponcePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="LabelUrl" Text="Autorize by this string"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Image x:Name="BarCode"></Image>
+            <Entry x:Name="Entry" Text="{Binding Code, Mode=TwoWay}" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="300" Completed="Entry_OnCompleted"></Entry>
+            <Button x:Name="EnterBtn" Text="Authorize" Clicked="Button_OnClicked"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="App4.Views.AlbumPage"
+             Title="{Binding AlbumSelected.Name}" 
+             d:Title="Title">
+
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+          
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <!--<ActivityIndicator  Grid.Column="1" Grid.Row="1" HorizontalOptions="Center"
+                            IsVisible="{Binding IsBusy}" 
+                            IsRunning="{Binding IsBusy}" />-->
+        <StackLayout Grid.Row="1" Grid.Column="1"  Margin="20">
+            <Label Text="{Binding AlbumSelected.Name}"
+                   FontSize="50"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            <RefreshView x:Name="RefreshViewPhotos" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" Command="{Binding LoadItemsCommand}" >
+                <CollectionView x:Name="CollectionViewC"  ItemsSource="{Binding MediaItemsCollection}" RemainingItemsThreshold="0" 
+                                RemainingItemsThresholdReachedCommand="{Binding AddItemsCommand}" RemainingItemsThresholdReached="CollectionViewC_OnRemainingItemsThresholdReached">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
+                                         Span="7" />
+                    </CollectionView.ItemsLayout>
+                    <d:CollectionView.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>First ItemInstItemInst</x:String>
+                            <x:String>Second ItemInst</x:String>
+                            <x:String>Third ItemInst</x:String>
+                            <x:String>Fourth ItemInst</x:String>
+                            <x:String>Fifth ItemInst</x:String>
+                            <x:String>Sixth ItemInst</x:String>
+                        </x:Array>
+                    </d:CollectionView.ItemsSource>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="8">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" />
+                                </Grid.GestureRecognizers>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="140" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="250" />
+                                    <ColumnDefinition Width="250" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2" 
+                               Source="{Binding ThumbUrl}" 
+                               Aspect="AspectFit"
+                               HeightRequest="240" 
+                               WidthRequest="240" />
+                                <Label Grid.Row="1" 
+                               Text="{Binding Name}" 
+                               d:Text="{Binding .}"
+                               FontAttributes="Bold"
+                               FontSize="Micro"
+                               LineBreakMode="TailTruncation" />
+                                <Label Grid.Row="1"
+                               Grid.Column="1" 
+                               Text="{Binding FullUrl}"
+                               LineBreakMode="TailTruncation"
+                               FontAttributes="Italic" 
+                               VerticalOptions="End" />
+                            </Grid>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+
+        <!--<Button x:Name="ButtonLoad" Grid.Column="1" Grid.Row="2" Text="Load" TextColor="Blue" FontSize="50"  ></Button>-->
+
+    </Grid>
+
+</ContentPage>

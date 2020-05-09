@@ -340,3 +340,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /TizenXamlApp1/TizenXamlApp1.TV/res/client_secrets.json
+/App4/App4/Services/GoogleAuthorize.cs
